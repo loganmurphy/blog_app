@@ -4,6 +4,10 @@
 
   <h1>Articles By This Author</h1>
 
-  {{posts}}
+  <ul>
+    {% for post in posts %}
+    <li>{{ post.title }}</li>
+    {% endfor %}
+  </ul>
 
 {% endblock %}

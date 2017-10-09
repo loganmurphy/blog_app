@@ -37,23 +37,23 @@ class CommentHandler(TemplateHandler):
     self.redirect('/post/' + slug)
 
 class AuthorArticleHandler(TemplateHandler):
-  def get (self, page):
-    author = Author.select().where(Author.id != 1).get()
-    posts =  BlogPost.select().where(BlogPost.author_id == author).get()
+  def get (self, id):
+
+    author = Author.select().where(Author.id == id)
+    posts =  BlogPost.select().where(BlogPost.author_id == author)
     self.render_template('author_articles.html', {'posts': posts})
 
 class AuthorHandler(TemplateHandler):
-  def get (self, page):
-    author = Author.select().get()
-    print(author)
-    self.render_template('authors.html', {'author': author})
+  def get (self, authors):
+    authors = Author.select()
+    self.render_template('authors.html', {'authors': authors})
 
 def make_app():
   return tornado.web.Application([
     (r"/", MainHandler),
     (r"/post/(.*)/comment", CommentHandler),
     (r"/post/(.*)", PostHandler),
-    (r"/page/(.*)", AuthorHandler),
+    (r"/authors/(.*)", AuthorHandler),
     (r"/author/(.*)", AuthorArticleHandler),
     (r"/static/(.*)",
       tornado.web.StaticFileHandler, {'path': 'static'}),

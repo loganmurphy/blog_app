@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>{{ post.title }}</h1>
+  <div class="content">
+    {{ post.html()|safe }}
+  </div>
+  <div class="created">
+    {{ post.created }}
+  </div>
+  <div class="author">
+    <a href="https://twitter.com/{{ post.author.twitter }}">
+      Twitter: {{ post.author.name }}
+    </a>
+  </div>
+  <div>
+    <form action="/post/{{ post.slug }}/comment" method="post">
+      <textarea name="comment"></textarea>
+      <br>
+      <button type="submit">Create Comment</button>
+    </form>
+  </div>
+{% endblock %}
